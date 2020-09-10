@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
+import AddTodo from './AddTodo'
 import TodoList from '../components/TodoList'
 
 import { selectDate, fetchTodosIfNeeded, invalidateDate } from '../actions'
@@ -22,6 +23,7 @@ class App extends React.Component {
     const { dispatch } = this.props
     if (date) dispatch(selectDate(date.toISOString().substr(0, 10)))
     else dispatch(selectDate(''))
+    return
   }
 
   render() {
@@ -29,6 +31,7 @@ class App extends React.Component {
     return (
       <div>
         <Header handleSelectDate={this.handleSelectDate} />
+        <AddTodo />
         <TodoList todos={todos} />
       </div>
     )
