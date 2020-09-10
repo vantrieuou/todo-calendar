@@ -51,3 +51,4 @@ yarn-error.log
 composer.lock
 package-lock.json
 npm_eslint_prettier_setup.sh
+db.json
