@@ -17,7 +17,11 @@ const selectedDate = (state = '', action) => {
 }
 
 const selectTodos = (
-  state = { isFetching: false, didInvalidate: false, items: [] },
+  state = {
+    isFetching: false,
+    didInvalidate: false,
+    items: [],
+  },
   action
 ) => {
   switch (action.type) {
@@ -57,7 +61,7 @@ const todosByDate = (state = {}, action) => {
       }
 
     default:
-      state
+      return state
   }
 }
 

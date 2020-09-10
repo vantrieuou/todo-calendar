@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const REQUEST_TODOS = 'REQUEST_TODOS'
 export const RECEIVE_TODOS = 'RECEIVE_TODOS'
 export const SELECT_DATE = 'SELECT_DATE'
@@ -7,7 +9,7 @@ export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const REMOVE_TODO = 'REMOVE_TODO'
 
-const homeUrl = 'http://localhost:3001'
+const apiUrl = 'http://localhost:3001/todos'
 
 // FILTER & FETCH TODOS
 export const selectDate = (date) => ({
@@ -25,17 +27,21 @@ export const requestTodos = (date) => ({
   date,
 })
 
-export const receiveTodos = (date, json) => ({
-  type: REQUEST_TODOS,
-  date,
-  todos: json.data.children.map((child) => child.data),
-})
+export const receiveTodos = (date, json) => {
+  return {
+    type: RECEIVE_TODOS,
+    date,
+    todos: json.data,
+  }
+}
 
 const fetchTodos = (date) => (dispatch) => {
   dispatch(requestTodos(date))
-  return fetch(`${homeUrl}/?date=${date}`)
-    .then((response) => response.json())
+  const url = apiUrl + (date ? `/?date=${date}` : '')
+  return axios
+    .get(url)
     .then((json) => dispatch(receiveTodos(date, json)))
+    .catch((error) => console.log('have an error ', error))
 }
 
 const shouldFetchTodos = (state, date) => {
