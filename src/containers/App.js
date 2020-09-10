@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Header from '../components/Header'
 import TodoList from '../components/TodoList'
 
-import { selectedDate, fetchTodosIfNeeded, invalidateDate } from '../actions'
+import { selectDate, fetchTodosIfNeeded, invalidateDate } from '../actions'
 
 class App extends React.Component {
   componentDidMount() {
@@ -11,11 +11,24 @@ class App extends React.Component {
     dispatch(fetchTodosIfNeeded(selectedDate))
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.selectedDate !== this.props.selectedDate) {
+      const { dispatch, selectedDate } = this.props
+      dispatch(fetchTodosIfNeeded(selectedDate))
+    }
+  }
+
+  handleSelectDate = (date) => {
+    const { dispatch } = this.props
+    if (date) dispatch(selectDate(date.toISOString().substr(0, 10)))
+    else dispatch(selectDate(''))
+  }
+
   render() {
     const { todos } = this.props
     return (
       <div>
-        <Header />
+        <Header handleSelectDate={this.handleSelectDate} />
         <TodoList todos={todos} />
       </div>
     )
