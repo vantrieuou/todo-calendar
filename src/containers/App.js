@@ -12,22 +12,6 @@ import 'react-google-flight-datepicker/dist/main.css'
 
 import { selectDate, fetchTodosIfNeeded, invalidateDate } from '../actions'
 
-const style = {
-  h1: {
-    marginTop: '3em',
-  },
-  h2: {
-    margin: '4em 0em 2em',
-  },
-  h3: {
-    marginTop: '2em',
-    padding: '2em 0em',
-  },
-  last: {
-    marginBottom: '300px',
-  },
-}
-
 class App extends React.Component {
   componentDidMount() {
     const { dispatch, selectedDate } = this.props
@@ -56,8 +40,8 @@ class App extends React.Component {
         <Header
           as="h3"
           content="Todo Calendar Simple App"
-          style={style.h3}
           textAlign="center"
+          style={{ marginTop: '3em' }}
         />
         <Container text>
           <Segment.Group>

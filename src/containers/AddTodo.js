@@ -18,6 +18,7 @@ const AddTodo = ({ dispatch, selectedDate }) => {
         )
         input.value = ''
       }}
+      style={{ margin: '6px' }}
     >
       <Form.Group>
         <Form.Field>
