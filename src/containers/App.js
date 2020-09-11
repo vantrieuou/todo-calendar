@@ -53,7 +53,7 @@ class App extends React.Component {
       <div>
         <Header
           as="h3"
-          content="Todo Calendar App Sample"
+          content="Todo Calendar App Simple"
           style={style.h3}
           textAlign="center"
         />
