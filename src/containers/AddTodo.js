@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from '../actions'
+import { Form, Button } from 'semantic-ui-react'
 
 const AddTodo = ({ dispatch, selectedDate }) => {
   let input
 
   return selectedDate ? (
-    <form
+    <Form
       onSubmit={(e) => {
         e.preventDefault()
         if (!input.value.trim()) {
@@ -16,9 +17,13 @@ const AddTodo = ({ dispatch, selectedDate }) => {
         input.value = ''
       }}
     >
-      <input ref={(node) => (input = node)} />
-      <button type="submit">Add Todo</button>
-    </form>
+      <Form.Group>
+        <Form.Field>
+          <input placeholder="Add Todo" ref={(node) => (input = node)} />
+        </Form.Field>
+        <Form.Button content="Submit" color="blue" />
+      </Form.Group>
+    </Form>
   ) : (
     <></>
   )
