@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../actions'
+import { addTodo, fetchTodosIfNeeded } from '../actions'
 import { Form } from 'semantic-ui-react'
 
 const AddTodo = ({ dispatch, selectedDate }) => {
@@ -13,7 +13,9 @@ const AddTodo = ({ dispatch, selectedDate }) => {
         if (!input.value.trim()) {
           return
         }
-        dispatch(addTodo(input.value, selectedDate))
+        dispatch(addTodo(input.value, selectedDate)).then(() =>
+          dispatch(fetchTodosIfNeeded(selectedDate))
+        )
         input.value = ''
       }}
     >

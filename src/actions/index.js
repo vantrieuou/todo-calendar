@@ -68,7 +68,7 @@ export const addTodo = (title, date) => (dispatch) => {
     .post(apiUrl, { title, date })
     .then(() => {
       dispatch(invalidateDate(date))
-      dispatch(fetchTodosIfNeeded(date))
+      dispatch(invalidateDate(''))
     })
     .catch((error) => console.log('have an error when adding new todo ', error))
 }
@@ -78,17 +78,17 @@ export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
     .put(`${apiUrl}/${id}`, { title, isCompleted, date })
     .then(() => {
       dispatch(invalidateDate(date))
-      dispatch(fetchTodosIfNeeded(date))
+      dispatch(invalidateDate(''))
     })
     .catch((error) => console.log('have an error when updating a todo', error))
 }
 
-export const removeTodo = (id, date) => dispatch => {
+export const removeTodo = (id, date) => (dispatch) => {
   return axios
     .delete(`${apiUrl}/${id}`)
     .then(() => {
       dispatch(invalidateDate(date))
-      dispatch(fetchTodosIfNeeded(date))
+      dispatch(invalidateDate(''))
     })
-    .catch((error) => console.log('have an error when updating a todo', error))
+    .catch((error) => console.log('have an error when removing a todo', error))
 }

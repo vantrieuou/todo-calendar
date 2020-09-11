@@ -1,12 +1,14 @@
 import React from 'react'
 import moment from 'moment'
 import { connect } from 'react-redux'
-import TodoHeader from '../components/Header'
+// import TodoHeader from '../components/Header'
 import AddTodo from './AddTodo'
 import TodoList from '../components/TodoList'
 
 import { Container, Header, Segment } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import { SingleDatePicker } from 'react-google-flight-datepicker'
+import 'react-google-flight-datepicker/dist/main.css'
 
 import { selectDate, fetchTodosIfNeeded, invalidateDate } from '../actions'
 
@@ -53,14 +55,21 @@ class App extends React.Component {
       <div>
         <Header
           as="h3"
-          content="Todo Calendar App Simple"
+          content="Todo Calendar Simple App"
           style={style.h3}
           textAlign="center"
         />
         <Container text>
           <Segment.Group>
             <Segment>
-              <TodoHeader handleSelectDate={this.handleSelectDate} />
+              <SingleDatePicker
+                startDate={new Date()}
+                onChange={(startDate) => this.handleSelectDate(startDate)}
+                dateFormat="YYYY-MM-DD"
+                monthFormat="MMM YYYY"
+                startWeekDay="monday"
+                highlightToday="true"
+              />
               <AddTodo />
             </Segment>
             <Segment>

@@ -3,7 +3,7 @@ import Todo from '../containers/Todo'
 import { List } from 'semantic-ui-react'
 
 const TodoList = ({ todos }) => (
-  <List selection  verticalAlign="middle">
+  <List selection verticalAlign="middle">
     {todos.map((todo) => (
       <Todo key={todo.id} {...todo} />
     ))}
