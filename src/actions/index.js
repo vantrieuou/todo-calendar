@@ -63,16 +63,25 @@ export const fetchTodosIfNeeded = (date) => (dispatch, getState) => {
 }
 
 // Create+Update+Delete TODOS
-export const addTodo = (title, date) => ({
-  type: ADD_TODO,
-  title,
-  date,
-})
+export const addTodo = (title, date) => (dispatch) => {
+  return axios
+    .post(apiUrl, { title, date })
+    .then(() => {
+      dispatch(invalidateDate(date))
+      dispatch(fetchTodosIfNeeded(date))
+    })
+    .catch((error) => console.log('have an error when adding new todo ', error))
+}
 
-export const toggleTodo = (id) => ({
-  type: TOGGLE_TODO,
-  id,
-})
+export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
+  return axios
+    .put(`${apiUrl}/${id}`, { title, isCompleted, date })
+    .then(() => {
+      dispatch(invalidateDate(date))
+      dispatch(fetchTodosIfNeeded(date))
+    })
+    .catch((error) => console.log('have an error when updating a todo', error))
+}
 
 export const removeTodo = (id) => ({
   type: REMOVE_TODO,

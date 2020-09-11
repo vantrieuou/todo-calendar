@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
 import AddTodo from './AddTodo'
@@ -21,7 +22,8 @@ class App extends React.Component {
 
   handleSelectDate = (date) => {
     const { dispatch } = this.props
-    if (date) dispatch(selectDate(date.toISOString().substr(0, 10)))
+
+    if (date) dispatch(selectDate(moment(date).format('YYYY-MM-DD')))
     else dispatch(selectDate(''))
     return
   }
