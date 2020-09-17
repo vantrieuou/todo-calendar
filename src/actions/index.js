@@ -68,12 +68,16 @@ export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
     .catch((error) => console.log('have an error when updating a todo', error))
 }
 
-// export const removeTodo = (id, date) => (dispatch) => {
-//   return axios
-//     .delete(`${apiUrl}/${id}`)
-//     .then(() => {
-//       dispatch(invalidateDate(date))
-//       dispatch(invalidateDate(''))
-//     })
-//     .catch((error) => console.log('have an error when removing a todo', error))
-// }
+export const removeTodo = (id, date) => (dispatch, getState) => {
+  return axios
+    .delete(`${apiUrl}/${id}`)
+    .then((response) => {
+      dispatch({
+        type: 'REMOVE_TODO_SUCCESS',
+        response: response.data,
+        date: getState().selectedDate,
+        id,
+      })
+    })
+    .catch((error) => console.log('have an error when removing a todo', error))
+}

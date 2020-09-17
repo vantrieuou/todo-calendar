@@ -8,10 +8,15 @@ const byId = (state = {}, action) => {
       return nextState
 
     case 'ADD_TODO_SUCCESS':
+    case 'TOGGLE_TODO_SUCCESS':
       return {
         ...state,
         [action.response.id]: action.response,
       }
+
+    case 'REMOVE_TODO_SUCCESS':
+      delete state[parseInt(action.id)]
+      return state
 
     default:
       return state
