@@ -49,20 +49,24 @@ export const addTodo = (title, date) => (dispatch) => {
       dispatch({
         type: 'ADD_TODO_SUCCESS',
         response: response.data,
+        date,
       })
     )
     .catch((error) => console.log('have an error when adding new todo ', error))
 }
 
-// export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
-//   return axios
-//     .put(`${apiUrl}/${id}`, { title, isCompleted, date })
-//     .then(() => {
-//       dispatch(invalidateDate(date))
-//       dispatch(invalidateDate(''))
-//     })
-//     .catch((error) => console.log('have an error when updating a todo', error))
-// }
+export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
+  return axios
+    .put(`${apiUrl}/${id}`, { title, isCompleted, date })
+    .then((response) => {
+      dispatch({
+        type: 'TOGGLE_TODO_SUCCESS',
+        response: response.data,
+        date,
+      })
+    })
+    .catch((error) => console.log('have an error when updating a todo', error))
+}
 
 // export const removeTodo = (id, date) => (dispatch) => {
 //   return axios

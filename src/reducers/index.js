@@ -14,6 +14,7 @@ const selectedDate = (state = 'all', action) => {
 
 const listByDate = (state = {}, action) => {
   const date = action.date || 'all'
+
   return {
     ...state,
     [date]: createTodoList(state[date], action),

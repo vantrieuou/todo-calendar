@@ -11,8 +11,7 @@ const createTodoList = (
       case 'FETCH_TODOS_SUCCESS':
         return action.response.map((todo) => todo.id)
       case 'ADD_TODO_SUCCESS': {
-        const ids = state.ids.push(action.response.id)
-        return state.ids
+        return [...state.ids, action.response.id]
       }
       default:
         return state.ids
