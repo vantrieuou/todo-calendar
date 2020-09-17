@@ -1,94 +1,75 @@
 import axios from 'axios'
 
-export const REQUEST_TODOS = 'REQUEST_TODOS'
-export const RECEIVE_TODOS = 'RECEIVE_TODOS'
-export const SELECT_DATE = 'SELECT_DATE'
-export const INVALIDATE_DATE = 'INVALIDATE_DATE'
-
-export const ADD_TODO = 'ADD_TODO'
-export const TOGGLE_TODO = 'TOGGLE_TODO'
-export const REMOVE_TODO = 'REMOVE_TODO'
-
 const apiUrl = 'http://localhost:3001/todos'
 
-// FILTER & FETCH TODOS
 export const selectDate = (date) => ({
-  type: SELECT_DATE,
+  type: 'SELECT_DATE',
   date,
 })
 
-export const invalidateDate = (date) => ({
-  type: INVALIDATE_DATE,
-  date,
-})
+// FILTER & FETCH TODOS
+export const fetchTodos = (date) => (dispatch, getState) => {
+  const url = apiUrl + (date !== 'all' ? `/?date=${date}` : '')
 
-export const requestTodos = (date) => ({
-  type: REQUEST_TODOS,
-  date,
-})
+  //checking isFetching here
 
-export const receiveTodos = (date, json) => {
-  return {
-    type: RECEIVE_TODOS,
+  dispatch({
+    type: 'FETCH_TODOS_REQUEST',
     date,
-    todos: json.data,
-  }
-}
+  })
 
-const fetchTodos = (date) => (dispatch) => {
-  dispatch(requestTodos(date))
-  const url = apiUrl + (date ? `/?date=${date}` : '')
   return axios
     .get(url)
-    .then((json) => dispatch(receiveTodos(date, json)))
-    .catch((error) => console.log('have an error ', error))
-}
-
-const shouldFetchTodos = (state, date) => {
-  const todos = state.todosByDate[date]
-  if (!todos) {
-    return true
-  }
-  if (todos.isFetching) {
-    return false
-  }
-  // didInvalidate: enable or disable fetching todos
-  return todos.didInvalidate
-}
-
-export const fetchTodosIfNeeded = (date) => (dispatch, getState) => {
-  if (shouldFetchTodos(getState(), date)) {
-    return dispatch(fetchTodos(date))
-  }
+    .then((response) =>
+      dispatch({
+        type: 'FETCH_TODOS_SUCCESS',
+        date,
+        response: response.data,
+      })
+    )
+    .catch((error) =>
+      dispatch({
+        type: 'FETCH_TODOS_FAILURE',
+        date,
+        message: 'Have an error when fetching todos',
+      })
+    )
 }
 
 // Create+Update+Delete TODOS
 export const addTodo = (title, date) => (dispatch) => {
+  dispatch({
+    type: 'ADD_TODO_REQUEST',
+    date,
+  })
+
   return axios
     .post(apiUrl, { title, date })
-    .then(() => {
-      dispatch(invalidateDate(date))
-      dispatch(invalidateDate(''))
-    })
+    .then((response) =>
+      dispatch({
+        type: 'ADD_TODO_SUCCESS',
+        response: response.data,
+      })
+    )
     .catch((error) => console.log('have an error when adding new todo ', error))
 }
 
-export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
-  return axios
-    .put(`${apiUrl}/${id}`, { title, isCompleted, date })
-    .then(() => {
-      dispatch(invalidateDate(date))
-      dispatch(invalidateDate(''))
-    })
-    .catch((error) => console.log('have an error when updating a todo', error))
-}
+// export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
+//   return axios
+//     .put(`${apiUrl}/${id}`, { title, isCompleted, date })
+//     .then(() => {
+//       dispatch(invalidateDate(date))
+//       dispatch(invalidateDate(''))
+//     })
+//     .catch((error) => console.log('have an error when updating a todo', error))
+// }
 
-export const removeTodo = (id, date) => (dispatch) => {
-  return axios
-    .delete(`${apiUrl}/${id}`)
-    .then(() => {
-      dispatch(invalidateDate(date))
-      dispatch(invalidateDate(''))
-    })
-    .catch((error) => console.log('have an error when removing a todo', error))
-}
+// export const removeTodo = (id, date) => (dispatch) => {
+//   return axios
+//     .delete(`${apiUrl}/${id}`)
+//     .then(() => {
+//       dispatch(invalidateDate(date))
+//       dispatch(invalidateDate(''))
+//     })
+//     .catch((error) => console.log('have an error when removing a todo', error))
+// }

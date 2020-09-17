@@ -1,5 +1,5 @@
 import React from 'react'
-import Todo from '../containers/Todo'
+import Todo from './Todo'
 import { List } from 'semantic-ui-react'
 
 const TodoList = ({ todos }) => (

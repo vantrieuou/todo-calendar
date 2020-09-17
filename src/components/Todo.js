@@ -1,34 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { List, Button, Checkbox } from 'semantic-ui-react'
-import { toggleTodo, removeTodo, fetchTodosIfNeeded } from '../actions'
 
 const Todo = ({ id, title, isCompleted, date, selectedDate, dispatch }) => {
   // handleToggleTodo =
   return (
     <List.Item>
       <List.Content floated="right">
-        <Button
-          icon="close"
-          color="red"
-          circular
-          size="mini"
-          inverted
-          onClick={() =>
-            dispatch(removeTodo(id, date)).then(() =>
-              dispatch(fetchTodosIfNeeded(selectedDate))
-            )
-          }
-        />
+        <Button icon="close" color="red" circular size="mini" inverted />
       </List.Content>
-      <List.Content
-        as="a"
-        onClick={() =>
-          dispatch(toggleTodo(id, title, !isCompleted, date)).then(() =>
-            dispatch(fetchTodosIfNeeded(selectedDate))
-          )
-        }
-      >
+      <List.Content as="a">
         <List.Header>
           <Checkbox
             label={`${title} - ${date}`}
