@@ -16,7 +16,7 @@ const listByDate = (state = {}, action) => {
   const date = action.date || 'all'
   return {
     ...state,
-    [date]: createTodoList(state[date], state.selectedDate, action),
+    [date]: createTodoList(state[date], action),
   }
 }
 

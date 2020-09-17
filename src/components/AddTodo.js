@@ -6,14 +6,14 @@ import { addTodo } from '../actions'
 const AddTodo = ({ selectedDate, dispatch }) => {
   let input
 
-  return selectedDate ? (
+  return selectedDate !== 'all' ? (
     <Form
       onSubmit={(e) => {
         e.preventDefault()
         if (!input.value.trim()) {
           return
         }
-        dispatch(addTodo(input.value))
+        dispatch(addTodo(input.value, selectedDate))
         input.value = ''
       }}
       style={{ margin: '6px' }}

@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
+import Calendar from './Calendar'
 
 import 'semantic-ui-css/semantic.min.css'
 import { Container, Header, Segment } from 'semantic-ui-react'
-import { SingleDatePicker } from 'react-google-flight-datepicker'
-import 'react-google-flight-datepicker/dist/main.css'
 
-const App = () => (
+export default () => (
   <div>
     <Header
       as="h3"
@@ -18,13 +17,7 @@ const App = () => (
     <Container text>
       <Segment.Group>
         <Segment>
-          <SingleDatePicker
-            startDate={new Date()}
-            dateFormat="YYYY-MM-DD"
-            monthFormat="MMM YYYY"
-            startWeekDay="monday"
-            highlightToday="true"
-          />
+          <Calendar />
           <AddTodo />
         </Segment>
         <Segment>
@@ -34,5 +27,3 @@ const App = () => (
     </Container>
   </div>
 )
-
-export default App

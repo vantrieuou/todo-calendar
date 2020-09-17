@@ -4,26 +4,22 @@ const createTodoList = (
     isFetching: false,
     errorMessage: null,
   },
-  selectedDate = 'all',
   action
 ) => {
   const ids = () => {
     switch (action.type) {
       case 'FETCH_TODOS_SUCCESS':
-        return action.response
-          .filter((todo) => action.date === 'all' || action.date == todo.date)
-          .map((todo) => todo.id)
-      // case 'ADD_TODO_SUCCESS':
-      //   return date !== 'completed' ? [...state, action.response.id] : state
+        return action.response.map((todo) => todo.id)
+      case 'ADD_TODO_SUCCESS': {
+        const ids = state.ids.push(action.response.id)
+        return state.ids
+      }
       default:
         return state.ids
     }
   }
 
   const isFetching = () => {
-    if (selectedDate !== action.date) {
-      return state
-    }
     switch (action.type) {
       case 'FETCH_TODOS_REQUEST':
         return true
@@ -36,9 +32,6 @@ const createTodoList = (
   }
 
   const errorMessage = () => {
-    if (selectedDate !== action.date) {
-      return state
-    }
     switch (action.type) {
       case 'FETCH_TODOS_FAILURE':
         return action.message
