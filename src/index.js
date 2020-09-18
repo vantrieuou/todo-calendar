@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import App from './components/App'
 
 const middleware = [thunk]
@@ -16,7 +17,9 @@ const store = createStore(reducer, applyMiddleware(...middleware))
 
 render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Route path="/:selectedDate?" component={App} />
+    </Router>
   </Provider>,
   document.getElementById('root')
 )

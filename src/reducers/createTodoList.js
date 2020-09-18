@@ -1,12 +1,12 @@
 import without from 'lodash.without'
-const createTodoList = (
-  state = {
-    ids: [],
-    isFetching: false,
-    errorMessage: null,
-  },
-  action
-) => {
+
+const initialByDate = {
+  ids: [],
+  isFetching: false,
+  errorMessage: null,
+}
+
+const createTodoList = (state = initialByDate, action) => {
   const ids = () => {
     switch (action.type) {
       case 'FETCH_TODOS_SUCCESS':
@@ -62,6 +62,6 @@ const createTodoList = (
 
 export default createTodoList
 
-export const getIds = (state) => state.ids
-export const getIsFetching = (state) => state.isFetching
-export const getErrorMessage = (state) => state.errorMessage
+export const getIds = (state = initialByDate) => state.ids
+export const getIsFetching = (state = initialByDate) => state.isFetching
+export const getErrorMessage = (state = initialByDate) => state.errorMessage

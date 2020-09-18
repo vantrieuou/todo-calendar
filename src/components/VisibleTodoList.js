@@ -4,6 +4,7 @@ import * as actions from '../actions'
 import { getVisibleTodos, getErrorMessage, getIsFetching } from '../reducers'
 import TodoList from './TodoList'
 import FetchError from './FetchError'
+import { withRouter } from 'react-router'
 
 class VisibleTodoList extends Component {
   componentDidMount() {
@@ -36,10 +37,13 @@ class VisibleTodoList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const selectedDate = state.selectedDate || 'all'
+const mapStateToProps = (state, { match: { params } }) => {
+  const selectedDate = params.selectedDate || 'all'
 
   return {
+    // isFetching: false,
+    // errorMessage: null,
+    // todos: [],
     isFetching: getIsFetching(state, selectedDate),
     errorMessage: getErrorMessage(state, selectedDate),
     todos: getVisibleTodos(state, selectedDate),
@@ -47,4 +51,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(VisibleTodoList)
+export default withRouter(connect(mapStateToProps, actions)(VisibleTodoList))
