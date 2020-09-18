@@ -22,8 +22,6 @@ const createTodoList = (
 
       case 'REMOVE_TODO_SUCCESS':
         state.ids = without(state.ids, parseInt(action.id))
-
-        console.log('action', action, state.ids)
         return state.ids
 
       default:

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getTodo } from '../reducers/byId'
 
 const apiUrl = 'http://localhost:3001/todos'
 
@@ -55,20 +56,22 @@ export const addTodo = (title, date) => (dispatch) => {
     .catch((error) => console.log('have an error when adding new todo ', error))
 }
 
-export const toggleTodo = (id, title, isCompleted, date) => (dispatch) => {
+export const toggleTodo = (id) => (dispatch, getState) => {
+  const { title, isCompleted, date } = getTodo(getState().byId, id)
+
   return axios
-    .put(`${apiUrl}/${id}`, { title, isCompleted, date })
+    .put(`${apiUrl}/${id}`, { title, isCompleted: !isCompleted, date })
     .then((response) => {
       dispatch({
         type: 'TOGGLE_TODO_SUCCESS',
         response: response.data,
-        date,
+        date: getState().selectedDate,
       })
     })
     .catch((error) => console.log('have an error when updating a todo', error))
 }
 
-export const removeTodo = (id, date) => (dispatch, getState) => {
+export const removeTodo = (id) => (dispatch, getState) => {
   return axios
     .delete(`${apiUrl}/${id}`)
     .then((response) => {

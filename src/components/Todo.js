@@ -13,7 +13,7 @@ const Todo = ({ id, title, isCompleted, date, selectedDate, dispatch }) => {
           circular
           size="mini"
           inverted
-          onClick={() => dispatch(removeTodo(id, date))}
+          onClick={() => dispatch(removeTodo(id))}
         />
       </List.Content>
       <List.Content as="a">
@@ -24,7 +24,7 @@ const Todo = ({ id, title, isCompleted, date, selectedDate, dispatch }) => {
             style={{
               textDecoration: isCompleted ? 'line-through' : 'none',
             }}
-            onClick={() => dispatch(toggleTodo(id, title, !isCompleted, date))}
+            onClick={() => dispatch(toggleTodo(id))}
           />
         </List.Header>
       </List.Content>

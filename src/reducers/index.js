@@ -14,7 +14,6 @@ const selectedDate = (state = 'all', action) => {
 
 const listByDate = (state = {}, action) => {
   const date = action.date || 'all'
-  console.log(date, 'dadddddddddddddddddddddte')
 
   return {
     ...state,
