@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import AddTodo from './AddTodo'
 import VisibleTodoList from './VisibleTodoList'
 import Calendar from './Calendar'

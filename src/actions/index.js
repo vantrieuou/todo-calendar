@@ -3,11 +3,6 @@ import { getTodo } from '../reducers/byId'
 
 const apiUrl = 'http://localhost:3001/todos'
 
-export const selectDate = (date) => ({
-  type: 'SELECT_DATE',
-  date,
-})
-
 // FILTER & FETCH TODOS
 export const fetchTodos = (date) => (dispatch, getState) => {
   const url = apiUrl + (date !== 'all' ? `/?date=${date}` : '')
@@ -20,7 +15,7 @@ export const fetchTodos = (date) => (dispatch, getState) => {
   })
 
   return axios
-    .get(url)
+    .get(url, { timeout: 1000 })
     .then((response) =>
       dispatch({
         type: 'FETCH_TODOS_SUCCESS',

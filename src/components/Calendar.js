@@ -1,5 +1,5 @@
 import React from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { useHistory, useParams } from 'react-router-dom'
 
 import { SingleDatePicker } from 'react-google-flight-datepicker'
@@ -8,7 +8,13 @@ import 'react-google-flight-datepicker/dist/main.css'
 export default () => {
   let history = useHistory()
   const { selectedDate } = useParams()
-  const startDate = selectedDate ? moment(selectedDate) : new Date()
+  const startDate = selectedDate ? dayjs(selectedDate) : new Date()
+
+  const handleOnChange = (date) => {
+    const url = date ? `/${dayjs(date).format('YYYY-MM-DD')}` : '/'
+    history.push(url)
+  }
+
   return (
     <SingleDatePicker
       startDate={startDate}
@@ -16,9 +22,7 @@ export default () => {
       monthFormat="MMM YYYY"
       startWeekDay="monday"
       highlightToday="true"
-      onChange={(date) =>
-        history.push(!date ? '/' : `/${moment(date).format('YYYY-MM-DD')}`)
-      }
+      onChange={handleOnChange}
     />
   )
 }

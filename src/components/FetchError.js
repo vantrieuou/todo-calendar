@@ -1,5 +1,5 @@
 import React from 'react'
 
-const FetchError = () => <div>Have an error</div>
-
-export default FetchError
+export default ({ message = 'Unknown error' }) => (
+  <div>Have an error: {message}</div>
+)

@@ -28,9 +28,7 @@ class VisibleTodoList extends Component {
       return <p>Loading...</p>
     }
     if (errorMessage && !todos.length) {
-      return (
-        <FetchError message={errorMessage} onRetry={() => this.fetchData()} />
-      )
+      return <FetchError message={errorMessage} />
     }
 
     return <TodoList todos={todos} onTodoClick={toggleTodo} />
@@ -41,9 +39,6 @@ const mapStateToProps = (state, { match: { params } }) => {
   const selectedDate = params.selectedDate || 'all'
 
   return {
-    // isFetching: false,
-    // errorMessage: null,
-    // todos: [],
     isFetching: getIsFetching(state, selectedDate),
     errorMessage: getErrorMessage(state, selectedDate),
     todos: getVisibleTodos(state, selectedDate),
