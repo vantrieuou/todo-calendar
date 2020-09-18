@@ -2,11 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form } from 'semantic-ui-react'
 import { addTodo } from '../actions'
+import { useParams } from 'react-router-dom'
 
-const AddTodo = ({ selectedDate, dispatch }) => {
+const AddTodo = ({ dispatch }) => {
   let input
+  const { selectedDate } = useParams()
 
-  return selectedDate !== 'all' ? (
+  return selectedDate ? (
     <Form
       onSubmit={(e) => {
         e.preventDefault()
@@ -30,4 +32,4 @@ const AddTodo = ({ selectedDate, dispatch }) => {
   )
 }
 
-export default connect(({ selectedDate }) => ({ selectedDate }))(AddTodo)
+export default connect()(AddTodo)

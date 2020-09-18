@@ -50,7 +50,7 @@ export const addTodo = (title, date) => (dispatch) => {
       dispatch({
         type: 'ADD_TODO_SUCCESS',
         response: response.data,
-        date,
+        date: date,
       })
     )
     .catch((error) => console.log('have an error when adding new todo ', error))
@@ -65,7 +65,6 @@ export const toggleTodo = (id) => (dispatch, getState) => {
       dispatch({
         type: 'TOGGLE_TODO_SUCCESS',
         response: response.data,
-        date: getState().selectedDate,
       })
     })
     .catch((error) => console.log('have an error when updating a todo', error))
@@ -78,7 +77,6 @@ export const removeTodo = (id) => (dispatch, getState) => {
       dispatch({
         type: 'REMOVE_TODO_SUCCESS',
         response: response.data,
-        date: getState().selectedDate,
         id,
       })
     })
