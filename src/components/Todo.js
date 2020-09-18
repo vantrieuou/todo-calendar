@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { List, Button, Checkbox } from 'semantic-ui-react'
 import { toggleTodo, removeTodo } from '../actions'
 
-const Todo = ({ id, title, isCompleted, date, selectedDate, dispatch }) => {
+const Todo = ({ id, title, isCompleted, date, dispatch }) => {
   return (
     <List.Item>
       <List.Content floated="right">
@@ -32,4 +32,4 @@ const Todo = ({ id, title, isCompleted, date, selectedDate, dispatch }) => {
   )
 }
 
-export default connect(({ selectedDate }) => ({ selectedDate }))(Todo)
+export default connect()(Todo)

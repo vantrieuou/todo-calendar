@@ -31,7 +31,9 @@ export default todos
 
 export const getVisibleTodos = (state, date) => {
   const ids = fromList.getIds(state.listByDate[date])
-  return ids.map((id) => fromById.getTodo(state.byId, id))
+  return ids
+    .filter((id) => !!fromById.getTodo(state.byId, id))
+    .map((id) => fromById.getTodo(state.byId, id))
 }
 
 export const getIsFetching = (state, date) =>
