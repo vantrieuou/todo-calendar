@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { getVisibleTodos, getErrorMessage, getIsFetching } from '../reducers'
-import TodoList from './TodoList'
-import FetchError from './FetchError'
+import TodoList from '../components/TodoList'
+import FetchError from '../components/FetchError'
 import { withRouter } from 'react-router'
 
 class VisibleTodoList extends Component {

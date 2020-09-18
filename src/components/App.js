@@ -1,6 +1,6 @@
 import React from 'react'
-import AddTodo from './AddTodo'
-import VisibleTodoList from './VisibleTodoList'
+import AddTodo from '../containers/AddTodo'
+import VisibleTodoList from '../containers/VisibleTodoList'
 import Calendar from './Calendar'
 
 import 'semantic-ui-css/semantic.min.css'
