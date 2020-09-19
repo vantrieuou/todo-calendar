@@ -3,14 +3,18 @@ import { connect } from 'react-redux'
 import { Form } from 'semantic-ui-react'
 import { addTodo } from '../actions'
 import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
+const StyledForm = styled(Form)`
+  margin: 6px;
+`
 
 const AddTodo = ({ dispatch }) => {
   let input
   const { selectedDate } = useParams()
 
   return (
-    !!selectedDate ?? (
-      <Form
+    !!selectedDate && (
+      <StyledForm
         onSubmit={(e) => {
           e.preventDefault()
           if (!input.value.trim()) {
@@ -19,7 +23,6 @@ const AddTodo = ({ dispatch }) => {
           dispatch(addTodo(input.value, selectedDate))
           input.value = ''
         }}
-        style={{ margin: '6px' }}
       >
         <Form.Group>
           <Form.Field>
@@ -27,7 +30,7 @@ const AddTodo = ({ dispatch }) => {
           </Form.Field>
           <Form.Button content="Submit" color="blue" />
         </Form.Group>
-      </Form>
+      </StyledForm>
     )
   )
 }

@@ -2,6 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { List, Button, Checkbox } from 'semantic-ui-react'
 import { toggleTodo, removeTodo } from '../actions'
+import styled from 'styled-components'
+const StyledCheckbox = styled(Checkbox)`
+  ${(props) => {
+    if (props.checked) {
+      return ` text-decoration: line-through; `
+    }
+  }}
+`
 
 const Todo = ({ id, title, isCompleted, date, dispatch }) => {
   return (
@@ -18,12 +26,9 @@ const Todo = ({ id, title, isCompleted, date, dispatch }) => {
       </List.Content>
       <List.Content as="a">
         <List.Header>
-          <Checkbox
+          <StyledCheckbox
             label={`${title} - ${date}`}
             checked={isCompleted}
-            style={{
-              textDecoration: isCompleted ? 'line-through' : 'none',
-            }}
             onClick={() => dispatch(toggleTodo(id))}
           />
         </List.Header>

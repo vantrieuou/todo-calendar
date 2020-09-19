@@ -5,15 +5,15 @@ import Calendar from './Calendar'
 
 import 'semantic-ui-css/semantic.min.css'
 import { Container, Header, Segment } from 'semantic-ui-react'
+import styled from 'styled-components'
+
+const Section = styled.section`
+  padding-top: 3rem;
+`
 
 export default () => (
-  <div>
-    <Header
-      as="h3"
-      content="Todo Calendar Simple App"
-      textAlign="center"
-      style={{ marginTop: '3em' }}
-    />
+  <Section>
+    <Header as="h3" content="Todo Calendar Simple App" textAlign="center" />
     <Container text>
       <Segment.Group>
         <Segment>
@@ -25,5 +25,5 @@ export default () => (
         </Segment>
       </Segment.Group>
     </Container>
-  </div>
+  </Section>
 )
